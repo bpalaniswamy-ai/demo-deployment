@@ -17,9 +17,9 @@ node{
         stage('deploy Docker'){
             echo 'Docker Image Tag Name: ${dockerImageTag}'
 
-            sh "docker stop demo-deployment || true && docker rm demo-deployment || true"
+//             bat "docker stop demo-deployment || true && docker rm demo-deployment || true"
 
-            sh "docker run --name demo-deployment -d -p 9000:9000 demo-deployment:S{env.BUILD_NUMBER}"
+            bat "docker run --name demo-deployment -d -p 8000:8008 demo-deployment:${env.BUILD_NUMBER}"
         }
 
 
