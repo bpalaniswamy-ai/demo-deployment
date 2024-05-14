@@ -1,21 +1,14 @@
-# Docker Build Stage
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 
+# compile and build jar
+WORKDIR /app
+COPY ./ /app
+RUN mvn clean package
 
 # Build Stage
-WORKDIR /opt/app
-
-COPY ./ /opt/app
-RUN mvn clean install -DskipTests
-
-
-# Docker Build Stage
-FROM openjdk:17-alpine
-
-COPY --from=build /opt/app/target/*.jar app.jar
-
-ENV PORT 8008
-EXPOSE $PORT
-
-ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
-
+FROM openjdk:17-jdk-alpine
+EXPOSE 8008
+# publish image from jar
+ARG JAR_FILE=/app/target/demo-deployment.jar
+COPY --from=build ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

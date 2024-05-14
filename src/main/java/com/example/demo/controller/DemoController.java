@@ -10,6 +10,6 @@ public class DemoController {
 
     @GetMapping("/ping")
     public String ping(){
-        return "Demo App is up!!";
+        return "Demo App is up - v1 changes!!";
     }
 }

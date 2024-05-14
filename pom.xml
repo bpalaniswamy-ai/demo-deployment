@@ -49,6 +49,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>demo-deployment</finalName>
 	</build>
 
 </project>
